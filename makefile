@@ -1,7 +1,7 @@
 CC=g++
 PROGNAME=constant_memory_tip_removal
 CFLAGS =  -O4 -DNO_BLOOM_UTILS
-SRC=minia/Pool.cpp minia/Bank.cpp minia/Kmer.cpp minia/OAHash.cpp minia/Utils.cpp
+SRC=minia/Bank.cpp minia/Kmer.cpp minia/OAHash.cpp minia/Utils.cpp
 EXEC=$(PROGNAME)
 OBJ= $(SRC:.cpp=.o)
 
@@ -62,3 +62,6 @@ $(PROGNAME): clean $(OBJ) main.cpp
     
 clean:
 	rm -rf *.o minia/*.o
+
+test: all
+	cd simple_test && ../constant_memory_tip_removal lambdaphage_nodes.fasta lambdaphage.solid_kmers_binary_with_count 10

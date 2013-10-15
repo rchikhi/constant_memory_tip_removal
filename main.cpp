@@ -12,7 +12,6 @@
 #include <math.h>
 
 #include "minia/Bank.h"
-#include "minia/Pool.h"
 #include "minia/Kmer.h"
 #include "minia/Utils.h"
 #include "minia/SortingCount.h" // for uint_abundance_t
@@ -25,7 +24,7 @@ int coverage_threshold;
 int max_tip_length;
 
 char *solid_kmers_with_count_filename;
-char *out_filename;
+char out_filename[1024];
 OAHash *hash;
 long nb_nodes_first_pass = 0, nb_nodes_second_pass = 0;
 long nb_tips_removed = 0, nb_nodes_kept = 0;
@@ -249,8 +248,8 @@ int main(int argc, char *argv[])
     
     if(argc <  3)
     {
-        fprintf (stderr,"usage:\n");
-        fprintf (stderr," %s nodes_file dsk_solid_kmers_filename min_abundance_for_tips [max_memory_in_MB]\n",argv[0]);
+        fprintf (stderr,"parameters:\n");
+        fprintf (stderr," nodes_file dsk_solid_kmers_file coverage_threshold [max_memory_in_MB]\n");
         return 0;
     }
 
@@ -264,12 +263,12 @@ int main(int argc, char *argv[])
     coverage_threshold = atoi(argv[3]);
     if (coverage_threshold < 1)
     {
-        printf("Minimum tip abundance must be > 0.\n");
+        printf("Coverage threshold must be > 0.\n");
         exit(1);
     }
 
-    // (not a arg yet) output nodes file
-    out_filename = (char*)"tip_filtered_nodes";
+    // output nodes file
+    sprintf(out_filename,"%s.tip_filtered_nodes",argv[1]);
 
     // estimate two things from the solid k-mers file: k and the number of distinct kmers
     BinaryBank *SolidKmersWithCount = new BinaryBank(solid_kmers_with_count_filename,sizeof(kmer_count_t),false);
