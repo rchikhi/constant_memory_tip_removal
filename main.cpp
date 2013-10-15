@@ -19,7 +19,7 @@
 using namespace std;
 
 // some global variables..
-int max_memory; // the most memory one should alloc at any time, in MB
+uint64_t max_memory; // the most memory one should alloc at any time, in MB
 int coverage_threshold;
 int max_tip_length;
 
@@ -299,7 +299,7 @@ int main(int argc, char *argv[])
     else
         max_memory = max( (rough_nb_kmers * 2)/8LL, 1024LL*1024LL); // max(2*(genome size), 1 MB)
 
-    printf("Maximum memory: %d MB\n",max_memory/1024LL/1024LL);
+    printf("Maximum memory: %d MB\n",(int)(max_memory/1024LL/1024LL));
 
     // now actually start the computation (timed)
 
