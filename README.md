@@ -1,8 +1,12 @@
 This software removes tips and short isolated vertices from a de Bruijn graph that resides in a file, in constant memory
 
-input: set of nodes (fasta)
+input:
+ - set of nodes (fasta)
+ - kmer counts (output of DSK for the reads)
+ - coverage threshold
 
-output: filtered set of nodes (fasta)
+output: 
+- filtered set of nodes (fasta)
 
 definitions:
 - a tip is a graph node such that:
